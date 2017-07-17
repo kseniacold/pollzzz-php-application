@@ -2,5 +2,5 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pollzzz web aplication</title>
 </head>
