@@ -87,6 +87,7 @@ a:focus {
 .page {
   width: 100%;
   margin: auto;
+  position: relative;
 }
 .header {
   padding: 1em 1.5em;
@@ -100,12 +101,44 @@ a:focus {
 .logo__red {
   color: #ba212e;
 }
-.poll_title {
+.poll {
+  position: relative;
+}
+.poll__title {
   text-align: center;
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.085em;
+}
+.poll__description {
+  text-align: center;
+  margin: auto;
+  width: 20%;
+  padding: 1em;
+  background-color: rgba(230, 230, 230, 0.25);
+}
+.timer {
+  font-family: 'Inconsolata', 'Lucida Console', monospace;
+  background-color: #ba212e;
+  color: #ffffff;
+  display: inline-block;
+  padding: 0 .2em;
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  z-index: 99999;
+}
+.timer__element {
+  display: inline-block;
+  padding: .5em;
+  text-align: center;
+}
+.timer__number,
+.timer__txt {
+  display: block;
 }
 .footer {
   border-top: 1px solid #e7e7e7;
-  font-family: monospace;
+  font-family: 'Inconsolata', 'Lucida Console', monospace;
   font-size: 1.2em;
   height: 4em;
   margin-top: -4em;
@@ -128,5 +161,6 @@ a:focus {
   text-align: center;
   background-color: #ba212e;
   color: #ffffff;
-  padding: .1em .4em;
+  padding: .15em .4em .22em;
+  line-height: 1em;
 }

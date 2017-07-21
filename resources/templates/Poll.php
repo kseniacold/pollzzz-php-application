@@ -16,7 +16,7 @@
 		// poll's description
 		var $_description;
 		
-		public function __construct($time_to_live, $title, $description) {
+		public function __construct($title, $time_to_live, $description) {
       		$this->_time_start = new DateTime();
 			
 			// will need to clone to object to keep instance variable intact and further modify cloned object
@@ -74,7 +74,7 @@
 		}
 		
 		/**
-		 * API
+		 * API methods
 		 */
 		
 		/**
@@ -92,6 +92,20 @@
 		}
 		
 		/**
+		 * returns the time when the poll will be closed - timestamp
+		 */
+		public function get_time_end_timestamp() {
+			return $this->_time_end->getTimestamp();
+		}
+		
+		/**
+		 * returns the time when the poll will be closed - timestamp in milliseconds
+		 */
+		public function get_time_end_timestamp_msec() {
+			return $this->_time_end->getTimestamp() * 1000;
+		}
+		
+		/**
 		 * prints information about state of the Poll object
 		 */
 		public function print_info() {
@@ -101,6 +115,7 @@
 			echo $this->get_time_start_formatted() . "\n";
 			echo $this->get_time_to_live() . "\n";
 			echo $this->get_time_end_formatted() . "\n";
+			echo $this->get_time_end_timestamp() . "\n";
 			echo "</pre>";
 		}
 	}
