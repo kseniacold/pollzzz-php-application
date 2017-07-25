@@ -1,7 +1,7 @@
 <?php
 	require_once("Poll.php");
 	
-	$poll = new Poll('Around the globe', '10 days', 'Places visited. People met. Food tried.');
+	$poll = new Poll('California vibes', '10 hours', 'All Cali and beyond.');
 ?>
 
 <main class="page">
