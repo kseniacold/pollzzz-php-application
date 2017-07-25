@@ -1,4 +1,14 @@
-<form id="poll-form" class="modal poll-form">
+<?php
+	/**
+	 * 1. validate #poll-form
+	 * 2. submit data to the server
+	 * 3. receive result with created poll record back
+	 * 4. pass poll ID to get method of dynamic URL 
+	 * 5. redirect user to the poll page
+	 */
+?>
+ 
+ <form id="poll-form" class="modal poll-form">
     <div class="field">
         <label class="field__lbl">Title:</label>
         <input required class="field__input" name="poll-name" type="text" maxlength="500">

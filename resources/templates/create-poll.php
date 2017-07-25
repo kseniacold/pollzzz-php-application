@@ -1,5 +1,7 @@
 <?php
-	require_once("Poll.php");
+    // load up your config file
+    require_once("../config.php");
+	require_once(LIBRARY_PATH . "/Poll.php");
 	
 	$poll = new Poll('California vibes', '10 hours', 'All Cali and beyond.');
 ?>

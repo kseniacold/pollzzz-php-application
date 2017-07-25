@@ -8,9 +8,14 @@
 $config = array(
     "paths" => array(
         "resources" => "/resources"
+    ),
+    "db" => array(
+      	"host"    => "localhost",
+        "username" => "test",
+        "password" => "pass",
+        "dbname"   => "pollzzz"
     )
 );
- 
 
 /**
     Creating constants for heavily used paths makes things a lot easier.
