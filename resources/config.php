@@ -10,8 +10,8 @@ $config = array(
         "resources" => "/resources"
     ),
     "db" => array(
-      	"host"    => "localhost",
-        "username" => "test",
+      	"host"     => "localhost",
+        "user"     => "test",
         "password" => "pass",
         "dbname"   => "pollzzz"
     )

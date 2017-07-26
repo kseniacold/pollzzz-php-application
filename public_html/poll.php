@@ -1,9 +1,8 @@
 <?php
-	$include_timer = true;  
     // load up your config file
     require_once("../resources/config.php");
      
-    require_once(TEMPLATES_PATH . "/head.php");
+    require_once(TEMPLATES_PATH . "/head-w-timer.php");
 ?>
 <body>
 	<div class="wrapper">
