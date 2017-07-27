@@ -7,8 +7,9 @@
 	 * DbConnection class
 	 * establish connection with the server
 	 * provides higher level methods as API
-	 * e.g create_table() or drop_table()
+	 * e.g create_table(), drop_table()
 	 * to be used on Business logic level
+	 * API methods throw exceptions in case of errors
 	 */
 	 
 	class DbConnection {
@@ -38,9 +39,7 @@
 		private function connect_to_host() {
 		 	$this->_cn = new mysqli($this->_host, $this->_user, $this->_password, $this->_db_name);
 		    if ($this->_cn->connect_error) {
-		    	$message = "Connection failed: " . $this->_cn->connect_error;
-				echo $message;
-		        exit;
+		    	throw new Exception("Connection failed: " . $this->_cn->connect_error);
 		    }
 			
 			return $this->_cn;
@@ -48,41 +47,125 @@
 		
 		/**
 		 * close_connection() closes established connection by accessing $this->_cn
+		 * throws exeption if no connection was previously established
 		 */
 		private function close_connection() {
 			if ($this->_cn) {
 				$this->_cn->close();
 				$this->_cn = null;	
 			} else {
-				echo "No connection has been established.";
+				throw new Exception("No connection has been established.");
 			}
 		}
 		
 		/**
 		 * create_table($query) creates table with provided query
 		 * closes connection after creation
+		 * throws exeption if can not connect to host or can not close connection
+		 * throws exrption when error occurs while creating the table
+		 * returns true if table has been created
 		 */
 		public function create_table($query) {
-			$db = $this->connect_to_host();
-				
-			if ($db->query($query)) {
-				echo "Table has been created" . "<br>";
-				$this->close_connection();
+			try {			
+				$db = $this->connect_to_host();
+			} 
+			// catch and rethrow exception
+			catch (Exception $err) {
+				throw new Exception($err->getMessage());
 			}
-			else {
+	
+			if ($db->query($query)) {
+				// close connection
+				try {			
+					$this->close_connection();
+				} 
+				// catch and rethrow exception
+				catch (Exception $err) {
+					throw new Exception($err->getMessage());
+				}
+				return true;			
+	
+			} else {
+				$message = "Error while creating the table: \n" . print_r($db->error_list, true);
+				throw new Exception($message);
+				
+				/*
 				echo "<pre>";
 				echo "Error while creating the table: \n";
 			 	print_r($db->error_list);
 				echo "</pre>";
+				 */
 			}
+				
 		}
+		
+		/**
+		 * insert_with_query_arr($query_arr, $table_name) method
+		 * Accepts $query_arr parameter that must contain column_names as keys
+		 * and values to insert as values
+		 * throws exeption if can not connect to host or can not close connection
+		 * returns number of rows affected
+		 */
+		public function insert_with_query_arr($query_arr, $table_name) {
+			$query;
+			
+			$query_into_str = implode(", ", array_keys($query_arr));
+			$query_values_str = implode("', '", array_values($query_arr));
+
+			$query = "INSERT INTO $table_name ( $query_into_str) values ('$query_values_str')";
+		  	
+			// connect to host
+			try {			
+				$db = $this->connect_to_host();
+			}
+			
+			// catch and rethrow exception
+			catch (Exception $err) {
+				throw new Exception($err->getMessage());
+			}
+			
+			if ($db->query($query)) {
+				$affected_rows = $db->affected_rows;
+				
+				// close connection
+				try {			
+					$this->close_connection();
+				} 
+				// catch and rethrow exception
+				catch (Exception $err) {
+					throw new Exception($err->getMessage());
+				}
+				return $affected_rows;	
+			} else {
+				throw new Exception("Error while creating the table: \n" . print_r($db->error_list, true));
+			}		
+		}
+		
+		/**
+		 * Accepts $query parameter as ready to use mySQL query
+		 * throws exeption if can not connect to host or can not close connection
+		 */
+		public function insert($query) {
+			// TODO implement simple insert with ready query
+		}
+		
 		
 		/**
 		 * drop_table($if_exists, $table_name) will drop table with provided table name
 		 * accepts $if_exists boolean argument
+		 * throws exeption if can not connect to host or can not close connection
+		 * throws exrption when error occurs while creating the table
+		 * returns true if table has been droped
 		 */
 		public function drop_table($if_exists, $table_name) {
-			$db = $this->connect_to_host();
+			try {			
+				$db = $this->connect_to_host();
+			} 
+			// catch and rethrow exception
+			catch (Exception $err) {
+				throw new Exception($err->getMessage());
+			}
+			
 			$query;
 			if ($if_exists) {
 				$query = "DROP TABLE IF EXISTS `" . $table_name  . "`";
@@ -91,14 +174,28 @@
 			}
 				
 			if ($db->query($query)) {
-				echo "Table has been dropped" . "<br>";
-				$this->close_connection();
+				
+				// close connection
+				try {			
+					$this->close_connection();
+				} 
+				// catch and rethrow exception
+				catch (Exception $err) {
+					throw new Exception($err->getMessage());
+				}
+				return true;
+				
 			}
 			else {
+				$message = "Error while dropping the table: \n" . print_r($db->error_list, true);
+				throw new Exception($message);
+				
+				/*
 				echo "<pre>";
 				echo "Error while dropping the table: \n";
 			 	print_r($db->error_list);
 				echo "</pre>";
+				 */
 			}
 		}
 	}
