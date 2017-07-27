@@ -2,13 +2,16 @@
 <?php
     // load up your config file
     require_once("../config.php");
-    	require_once(LIBRARY_PATH . "/SelectQuery.php");
+	require_once(LIBRARY_PATH . "/SelectQuery.php");
+	
 	/**
 	 * DbConnection class
 	 * establish connection with the server
+	 * 
 	 * provides higher level methods as API
 	 * e.g create_table(), drop_table()
 	 * to be used on Business logic level
+	 * 
 	 * API methods throw exceptions in case of errors
 	 * uses SelectQuery class to provide flexibility for select query
 	 */
@@ -148,8 +151,7 @@
 		 * throws exeption if can not connect to host or can not close connection
 		 * throws exeption when error occurs while selecting rows
 		 * returns rows array containing associative array for each row
-		 */
-		 
+		 */	 
 		public function select($select_query_obj) {
 			$rows = array();
 			$query = $select_query_obj->get_query();
