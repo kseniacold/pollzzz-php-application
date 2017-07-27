@@ -12,7 +12,7 @@
 			if (empty($_POST)) {
 				require_once(TEMPLATES_PATH . "/create-poll.php");
 			} else {
-				require_once(TEMPLATES_PATH . "/poll-form-submit.php");
+				require_once(TEMPLATES_PATH . "/poll-template.php");
 			}
 		?>
 	</div>
