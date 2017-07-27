@@ -2,7 +2,7 @@
 <?php
     // load up your config file
     require_once("../config.php");
-	
+    	require_once(LIBRARY_PATH . "/SelectQuery.php");
 	/**
 	 * DbConnection class
 	 * establish connection with the server
@@ -10,6 +10,7 @@
 	 * e.g create_table(), drop_table()
 	 * to be used on Business logic level
 	 * API methods throw exceptions in case of errors
+	 * uses SelectQuery class to provide flexibility for select query
 	 */
 	 
 	class DbConnection {
@@ -62,7 +63,7 @@
 		 * create_table($query) creates table with provided query
 		 * closes connection after creation
 		 * throws exeption if can not connect to host or can not close connection
-		 * throws exrption when error occurs while creating the table
+		 * throws exeption when error occurs while creating the table
 		 * returns true if table has been created
 		 */
 		public function create_table($query) {
@@ -88,13 +89,6 @@
 			} else {
 				$message = "Error while creating the table: \n" . print_r($db->error_list, true);
 				throw new Exception($message);
-				
-				/*
-				echo "<pre>";
-				echo "Error while creating the table: \n";
-			 	print_r($db->error_list);
-				echo "</pre>";
-				 */
 			}
 				
 		}
@@ -149,6 +143,48 @@
 			// TODO implement simple insert with ready query
 		}
 		
+		/**
+		 * Accepts $select_query_obj of SelectQuery type
+		 * throws exeption if can not connect to host or can not close connection
+		 * throws exeption when error occurs while selecting rows
+		 * returns rows array containing associative array for each row
+		 */
+		 
+		public function select($select_query_obj) {
+			$rows = array();
+			$query = $select_query_obj->get_query();
+			
+			// connect to host
+			try {			
+				$db = $this->connect_to_host();
+			}
+			
+			// catch and rethrow exception
+			catch (Exception $err) {
+				throw new Exception($err->getMessage());
+			}
+			
+			if ($result = $db->query($query)) {
+				while ($row = $result->fetch_assoc()) {
+					$rows[] = $row; 
+				}
+				
+				// close connection
+				try {			
+					$this->close_connection();
+				} 
+				// catch and rethrow exception
+				catch (Exception $err) {
+					throw new Exception($err->getMessage());
+				}
+				return $rows;			
+	
+			} else {
+				$message = "Error while retreiving rows: \n" . print_r($db->error_list, true);
+				throw new Exception($message);
+			}
+		}
+		
 		
 		/**
 		 * drop_table($if_exists, $table_name) will drop table with provided table name
@@ -189,13 +225,6 @@
 			else {
 				$message = "Error while dropping the table: \n" . print_r($db->error_list, true);
 				throw new Exception($message);
-				
-				/*
-				echo "<pre>";
-				echo "Error while dropping the table: \n";
-			 	print_r($db->error_list);
-				echo "</pre>";
-				 */
 			}
 		}
 	}
