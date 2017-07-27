@@ -1,5 +1,5 @@
 <?php
-	require_once("../library/Poll.php");
+	require_once(LIBRARY_PATH . "/Poll.php");
 	
 	$poll = new Poll('California vibes', '10 hours', 'All Cali and beyond.');
 ?>

@@ -156,6 +156,9 @@ textarea {
   -webkit-appearance: none;
   border-image: none;
 }
+.hidden {
+  display: none;
+}
 .header {
   padding: 1em 1.5em;
   border-bottom: 1px solid #e7e7e7;
