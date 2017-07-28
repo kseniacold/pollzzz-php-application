@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/poll-form.js" type="text/javascript"></script>
+    <script src="js/poll-submit.js"></script>
     <link href="css/base.css" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Pollzzz web aplication</title>

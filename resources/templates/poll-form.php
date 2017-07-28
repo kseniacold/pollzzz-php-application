@@ -1,5 +1,5 @@
 <div id="poll-wrapper" class="modal poll-form__container">
-	<form id="poll-form" class="modal poll-form" action="index.php" method="post">
+	<form id="poll-form" class="modal poll-form">
 	    <div class="field">
 	        <label class="field__lbl">Title:</label>
 	        <input required class="field__input" name="poll-name" type="text" maxlength="250">

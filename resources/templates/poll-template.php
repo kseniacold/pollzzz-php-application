@@ -4,11 +4,9 @@
 	
 	/**
 	 * This template goes inside main.page
-	 * 1. validate #poll-form
-	 * 2. submit data to the server
-	 * 3. receive result with created poll record back
-	 * 4. pass poll ID to get method of dynamic URL 
-	 * 5. redirect user to the poll page
+	 * 1. Parse URL, get poll id
+	 * 2. Get poll from db
+	 * 3. Display poll
 	 */
 	
 	$poll = new Poll('California vibes', '10 hours', 'All Cali and beyond.');
