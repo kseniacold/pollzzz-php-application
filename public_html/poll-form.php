@@ -13,7 +13,6 @@
 	 * 5. redirect user to the poll page
 	 */
 	 
-	 /*
 	 $pollForm = new PollForm();
 	 if($pollForm->process_form()) {
 	 	print_r($_POST);
@@ -21,8 +20,4 @@
 	 	// sending error to Ajax response
  	 	throw new Exception(print_r($GLOBALS['errors'], true));
 	 }
-
-*/
-
-	echo "Hello world";
 ?>
