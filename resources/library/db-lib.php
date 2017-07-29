@@ -161,7 +161,6 @@
 		public function select($select_query_obj) {
 			$rows = array();
 			$query = $select_query_obj->get_query();
-			
 			// connect to host
 			try {			
 				$db = $this->connect_to_host();

@@ -30,6 +30,8 @@
 		 * returns full select query adter setting instance varibles
 		 */
 		public function get_query() {
+			$this->_query = "SELECT $this->_select_expr";
+			
 			if ($this->_db_table) {
 				$this->_query .= " FROM $this->_db_table";
 			} 

@@ -173,6 +173,10 @@ textarea {
 }
 .poll {
   position: relative;
+  padding: 3em;
+}
+.poll .details__link {
+  border-bottom: 1px dashed black;
 }
 .poll__title {
   text-align: center;

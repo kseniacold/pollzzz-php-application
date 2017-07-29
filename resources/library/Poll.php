@@ -16,8 +16,8 @@
 		// poll's description
 		var $_description;
 		
-		public function __construct($title, $time_to_live, $description) {
-      		$this->_time_start = new DateTime();
+		public function __construct($title, $time_start, $time_to_live, $description) {
+      		$this->_time_start = new DateTime($time_start);
 			
 			// will need to clone to object to keep instance variable intact and further modify cloned object
 			$start_time = clone $this->_time_start;
@@ -27,7 +27,8 @@
 			$this->_time_to_live = $time_to_live;
 			
 			// intemediate variable to create DateInterval object
-			$time_to_live_interval = DateInterval::createFromDateString($time_to_live);
+			// expects interval specification string for DateInterval Constructor
+			$time_to_live_interval = new DateInterval($time_to_live);
 			$this->_time_end = $start_time->add($time_to_live_interval);
 			
 			$this->_title = $title;

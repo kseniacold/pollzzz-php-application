@@ -6,9 +6,14 @@
 (function() {
     $(document).ready(function() {
         var jTimer = $('.timer'),
+            timerEnd,
+            timer;
+
+        if (jTimer) {
             timerEnd = parseInt(jTimer.attr('data-timer-end')), //getting timer end time from data attribute
             timer = new Timer(timerEnd, jTimer);
-        timer.start();
+            timer.start();
+        }
     });
 
     /**
@@ -19,7 +24,6 @@
      */
     function Timer(timerEnd, jTimer) {
         this.timerEnd = new Date(timerEnd);
-        console.log(this.timerEnd.toISOString());
         this.jTimer = jTimer;
         this.elements = ['days', 'hours', 'minutes', 'seconds'];
     }
