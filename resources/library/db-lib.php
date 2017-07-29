@@ -1,7 +1,4 @@
-
 <?php
-    // load up your config file
-    require_once("../config.php");
 	require_once(LIBRARY_PATH . "/SelectQuery.php");
 	
 	/**
@@ -241,4 +238,5 @@
 	
 	    echo "<script>console.log( 'PHP information: " . $output . "' );</script>";
 	}
+
 ?>
