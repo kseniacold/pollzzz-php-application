@@ -70,9 +70,16 @@
     }
 
     function doneCallback(response, textStatus, jqXHR) {
-        // Log a message to the console
-        console.log("Hooray, it worked!");
-        console.log(response);
+
+        var output = JSON.parse(response);
+        var pollId;
+        if (!output.success) {
+            // print error to console
+            console.log(output.error);
+        } else {
+            pollId = output.data;
+            window.location.replace("poll.php?id=" + pollId);
+        }
     }
 
     function failCallback(jqXHR, textStatus, errorThrown) {

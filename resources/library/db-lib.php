@@ -98,16 +98,11 @@
 		 * Accepts $query_arr parameter that must contain column_names as keys
 		 * and values to insert as values
 		 * throws exeption if can not connect to host or can not close connection
-		 * returns number of rows affected
+		 * returns insert_id
 		 */
 		public function insert_with_query_arr($query_arr, $table_name) {
 			$query;
 			
-			$query_into_str = implode(", ", array_keys($query_arr));
-			$query_values_str = implode("', '", array_values($query_arr));
-
-			$query = "INSERT INTO $table_name ( $query_into_str) values ('$query_values_str')";
-		  	
 			// connect to host
 			try {			
 				$db = $this->connect_to_host();
@@ -118,8 +113,22 @@
 				throw new Exception($err->getMessage());
 			}
 			
+			// escape characthers
+			$valuesArr = array_values($query_arr);
+			$valuesArrEscaped = array();
+			foreach ($valuesArr as $value) {
+				$valuesArrEscaped[] = $db->real_escape_string($value);
+			}	
+				
+			$query_into_str = implode(", ", array_keys($query_arr));
+			$query_values_str = implode("', '", $valuesArrEscaped);
+			
+			$query = "INSERT INTO $table_name ( $query_into_str) values ('$query_values_str')";
+		  	
+			
+			
 			if ($db->query($query)) {
-				$affected_rows = $db->affected_rows;
+				$insert_id = $db->insert_id;
 				
 				// close connection
 				try {			
@@ -129,9 +138,9 @@
 				catch (Exception $err) {
 					throw new Exception($err->getMessage());
 				}
-				return $affected_rows;	
+				return $insert_id;	
 			} else {
-				throw new Exception("Error while creating the table: \n" . print_r($db->error_list, true));
+				throw new Exception("Error while inserting row: \n" . print_r($db->error_list, true));
 			}		
 		}
 		
@@ -226,6 +235,7 @@
 				throw new Exception($message);
 			}
 		}
+		
 	}
 	
 	/**

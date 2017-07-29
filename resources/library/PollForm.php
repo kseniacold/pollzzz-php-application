@@ -16,7 +16,7 @@
 			// duration minutes
 			$duration_minutes = $_POST['poll-duration-mins'];
 			
-			if(!$duration_days || !$duration_hours || !$duration_minutes) {
+			if(!$duration_days && !$duration_hours && !$duration_minutes) {
 				$GLOBALS['errors'][] = "You must provide a valid timeframe.";  //Add to Error List
 			}
 			

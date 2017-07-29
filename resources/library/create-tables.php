@@ -31,7 +31,7 @@
 	// query for creating poll table					
 	$sql_query_poll = "CREATE TABLE poll (
 	  					ID bigint UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
-	  					author_id bigint UNSIGNED UNIQUE,
+	  					author_id bigint UNSIGNED,
 	  					time_start timestamp DEFAULT CURRENT_TIMESTAMP,
     					duration_millisec bigint UNSIGNED,
 	  					title varchar(250),
@@ -40,8 +40,16 @@
 						FOREIGN KEY (author_id)
         				REFERENCES user (ID)
         				ON DELETE SET NULL
-		
 						)";
+	
+	// to mantain data integrity but to allow only anonymous polls and comments for the first time
+	// will insert default user					
+	$sql_query_default_user_array = array(
+									'email' => 'test@test.com',
+									'name' 	=> 'test',
+									'username' => 'test_user',
+									'password' => 'pass'
+									);
 						
 	try {
 		if ($cn->drop_table($if_exists, "poll")) { echo "poll table dropped.<br>"; }			
@@ -51,6 +59,10 @@
 		if ($cn->create_table($sql_query_user)) { echo "user table created.<br>"; }
 		// creating table poll			
 		if ($cn->create_table($sql_query_poll)) { echo "poll table created.<br>"; }
+		
+		// adding default user
+		if ($cn->insert_with_query_arr($sql_query_default_user_array, 'user')) { echo "Default user inserted.<br>"; }
+		
 		
 	} 
 	// catch and print errors

@@ -11,17 +11,18 @@
 	    <div class="field">
 	        <label class="field__lbl">Duration:</label>
 	        <fieldset class="field__group">
-	            <input class="field__input inline" name="poll-duration-days" step="1" min="0">
+	            <input class="field__input inline" name="poll-duration-days" value="1" type="number" step="1" min="0">
 	            <span class="field__details">days</span>
 	        </fieldset>
 	        <fieldset class="field__group">
-	            <input class="field__input inline" name="poll-duration-hrs" type="text">
+	            <input class="field__input inline" name="poll-duration-hrs" value="0" type="number" step="1" min="0">
 	            <span class="field__details">hours</span>
 	        </fieldset>
 	        <fieldset class="field__group">
-	            <input class="field__input inline" name="poll-duration-mins" type="number" step="1" min="0" max="59">
+	            <input class="field__input inline" name="poll-duration-mins" value="0" type="number" step="1" min="0" max="59">
 	            <span class="field__details">minutes</span>
 	        </fieldset>
+         	<input name="user-id" hidden value="1">
 	        <div class="btn__wrapper">
 	            <input class="btn" name="submit" type="submit" value="Create Poll">
 	        </div>
