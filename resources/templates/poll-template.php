@@ -42,6 +42,7 @@
 		// filling local variables
 		$duration_seconds = $row['duration_millisec'] / 1000;
 		$time_start = $row['time_start'];
+
 		$interval_spec = 'PT' . $duration_seconds . 'S';
 		$title = $row['title'];
 		$description = $row['description'];
@@ -56,12 +57,16 @@
 	<?php
 		if(!empty($poll)) {
 			$attr_value = $poll->get_time_end_timestamp_msec();
-
+			
 			$title = $poll->get_title();
 			$description = $poll->get_description();
 			echo  '<h1 class="poll__title">' . $title . '</h1>';
-			echo  '<div class="poll__description">' . $description . '</div>';
+			if (!empty($description)) {
+				echo  '<div class="poll__description">' . $description . '</div>';
+			}
+			
 			echo  '<div class="timer" data-timer-end=' . $attr_value . '></div>';
+			echo '<p class="details">Create <a class="details__link" href="index.php">a new poll.</a></p>';
 		} else {
 			echo '<h3 class="poll_message">Can not find this poll. :-(</h3>';
 			echo '<p class="details">Feel free to create <a class="details__link" href="index.php">a new one.</a></p>';

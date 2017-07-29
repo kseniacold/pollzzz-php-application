@@ -17,6 +17,7 @@
 		var $_description;
 		
 		public function __construct($title, $time_start, $time_to_live, $description) {
+			date_default_timezone_set('UTC');
       		$this->_time_start = new DateTime($time_start);
 			
 			// will need to clone to object to keep instance variable intact and further modify cloned object

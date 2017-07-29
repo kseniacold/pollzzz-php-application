@@ -47,7 +47,7 @@
             var difference,
                 now;
 
-            now = this.getCurrentTime();
+            now = this.getCurrentTimeUTC();
             difference = this.timerEnd.getTime() - now;
 
             if (difference >= 0) {
@@ -94,9 +94,14 @@
 
         /**
          * @returns {Date} current time in milliseconds
+         * UTC time
          */
-        getCurrentTime: function () {
-            return new Date();
+        getCurrentTimeUTC: function () {
+            var now = new Date();
+            var time = now.getTime();
+            var offset = now.getTimezoneOffset();
+            offset = offset * 60000;
+            return time - offset;
         }
     };
 }());
