@@ -22,7 +22,7 @@
 			// will need to clone to object to keep instance variable intact and further modify cloned object
 			$start_time = clone $this->_time_start;
 			
-			// expecting time sting e.g. '1 day', '10 hours', etc
+			// expecting time string e.g. '1 day', '10 hours', etc
 			// using static method createFromDateString() of DateInterval class
 			$this->_time_to_live = $time_to_live;
 			
