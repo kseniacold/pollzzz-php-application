@@ -1,5 +1,10 @@
 <?php
-
+	// config file
+	require_once("../resources/config.php");
+	
+	require_once(LIBRARY_PATH . "/db-lib.php");
+	require_once(LIBRARY_PATH . "/PollForm.php");
+	
 	/**
 	 * This script progess #poll-form
 	 * 1. validate #poll-form
@@ -9,5 +14,12 @@
 	 * 5. redirect user to the poll page
 	 */
 	 
-	 print_r($_POST);
+	 $pollForm = new PollForm();
+	 if($pollForm->process_form()) {
+	 	print_r($_POST);
+	 } else {
+	 	// sending error to Ajax response
+ 	 	throw new Exception(print_r($GLOBALS['errors'], true));
+	 }
+	 
 ?>

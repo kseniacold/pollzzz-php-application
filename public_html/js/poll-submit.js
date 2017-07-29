@@ -4,14 +4,30 @@
  */
 
 (function() {
-    // Variable to hold request
+
     $(document).ready(function () {
-        var request,
-            jPollForm = $('#poll-form');
+        var jFormElem = $('#poll-form'),
+            ajaxObj = {
+                url: "poll-form.php",
+                type: "post"
+            };
 
+        sendFormAjax(jFormElem, ajaxObj, doneCallback, failCallback);
 
+    });
+
+    /**
+     * sendFormAjax() sends form data via Ajax request
+     * @param jFormElem - jQuery form element
+     * @param ajaxObj - plain Object, settings to be passed to ajax call, except for data,
+     * data will be fetched by this function
+     * @param doneCallback - function to be called on success
+     * @param failCallback - function to be called on fail
+     */
+    function sendFormAjax(jFormElem, ajaxObj, doneCallback, failCallback) {
+        var request;
         // Bind submit request to the form
-        jPollForm.submit(function(event) {
+        jFormElem.submit(function(event) {
             // local variable for easy access
             var jForm = $(this);
             // Prevent default posting of the form - put here to work in case of errors
@@ -33,28 +49,15 @@
             // Disabling the inputs for the duration of the Ajax request.
             jInputs.prop("disabled", true);
 
-            // Fire off the request to /poll-form.php
-            request = $.ajax({
-                url: "poll-form.php",
-                type: "post",
-                data: serializedData
-            });
+            // Fire off the request
+            ajaxObj.data = serializedData;
+            request = $.ajax(ajaxObj);
 
             // Callback handler that will be called on success
-            request.done(function (response, textStatus, jqXHR){
-                // Log a message to the console
-                console.log("Hooray, it worked!");
-                console.log(response);
-            });
+            request.done(doneCallback);
 
             // Callback handler that will be called on failure
-            request.fail(function (jqXHR, textStatus, errorThrown){
-                // Log the error to the console
-                console.error(
-                    "The following error occurred: "+
-                    textStatus, errorThrown
-                );
-            });
+            request.fail(failCallback);
 
             // Callback handler that will be called regardless
             // if the request failed or succeeded
@@ -64,6 +67,20 @@
             });
 
         });
-    });
+    }
+
+    function doneCallback(response, textStatus, jqXHR) {
+        // Log a message to the console
+        console.log("Hooray, it worked!");
+        console.log(response);
+    }
+
+    function failCallback(jqXHR, textStatus, errorThrown) {
+        // Log the error to the console
+        console.error(
+            "The following error occurred: " +
+            textStatus, errorThrown
+        );
+    }
 
 }());

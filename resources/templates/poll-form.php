@@ -11,7 +11,7 @@
 	    <div class="field">
 	        <label class="field__lbl">Duration:</label>
 	        <fieldset class="field__group">
-	            <input class="field__input inline" name="poll-duration-days" type="number" step="1" min="0">
+	            <input class="field__input inline" name="poll-duration-days" step="1" min="0">
 	            <span class="field__details">days</span>
 	        </fieldset>
 	        <fieldset class="field__group">

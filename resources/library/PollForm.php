@@ -53,5 +53,19 @@
 								
 			return empty($GLOBALS['errors']);
 		}
+
+
+		/**
+		 * process_form() calls $this->validate_from()
+		 * returns true in case of success
+		 * returns false otherwise
+		 */
+		public function process_form() {
+			if ($this->validate_form()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 ?>

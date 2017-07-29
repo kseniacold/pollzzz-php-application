@@ -9,5 +9,5 @@
     <link rel="stylesheet" href="css/jquery.modal.min.css" type="text/css" media="screen" />
     <link href="css/base.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Pollzzz web aplication</title>
+    <title>Pollzzz web application</title>
 </head>

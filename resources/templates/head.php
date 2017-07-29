@@ -10,5 +10,5 @@
     <script src="js/poll-submit.js"></script>
     <link href="css/base.css" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Pollzzz web aplication</title>
+    <title>Pollzzz web application</title>
 </head>
